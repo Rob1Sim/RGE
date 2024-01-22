@@ -60,7 +60,7 @@ jobs:
       run: |
         $version = (Get-Content CMakeLists.txt -Raw | Select-String -Pattern 'project\(.*VERSION ([0-9]+\.[0-9]+\.[0-9]+)' | ForEach-Object { $_.Matches.Groups[1].Value })
         echo "version-number=$version" >> "$GITHUB_OUTPUT"
-        echo "$version"
+        echo "$GITHUB_OUTPUT"
         
     - name: Download GLFW
       run: |
