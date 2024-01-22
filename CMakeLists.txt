@@ -3,7 +3,7 @@ project(RGE VERSION 0.0.1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
+file(GLOB_RECURSE SOURCE_FILES src/*.cpp src/glad.c)
 add_executable(RGE ${SOURCE_FILES})
 
 target_include_directories(RGE PUBLIC include)
