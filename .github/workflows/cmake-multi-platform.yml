@@ -59,7 +59,7 @@ jobs:
       id: version-number-w
       run: |
         $version = Get-Content CMakeLists.txt -Raw | Select-String -Pattern 'project\(.*VERSION ([0-9]+\.[0-9]+\.[0-9]+)' | ForEach-Object { $_.Matches.Groups[1].Value.Trim() }
-        echo "version-number=$version" >> "$GITHUB_OUTPUT"
+        echo "version-number-w=$version" >> "$GITHUB_OUTPUT"
         echo "$version"
         
     - name: Download GLFW
@@ -102,7 +102,7 @@ jobs:
     - name: Create archive Windows
       if: matrix.os == 'windows-latest'
       run: |
-            Compress-Archive -Path ./build/ -DestinationPath "RGE-${{ steps.version-number-w.outputs.version-number }}.zip"
+            Compress-Archive -Path ./build/ -DestinationPath "RGE-${{ steps.version-number-w.outputs.version-number-w }}.zip"
             
     - name: Create archive Linux
       if: matrix.os == 'ubuntu-latest'
@@ -113,7 +113,7 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.version-number.outputs.version-number }}${{ steps.version-number-w.outputs.version-number }}"
+          automatic_release_tag: "${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.version-number.outputs.version-number }}${{ steps.version-number-w.outputs.version-number-w }}"
           prerelease: true
           title: "Release Build"
           files: RGE.zip
