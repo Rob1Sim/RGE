@@ -56,3 +56,7 @@ On Unix system :
 
 - GLFW (<https://www.glfw.org/>)
 - OpenGL (<https://www.opengl.org/>)
+
+## License
+
+This project is licensed under the MIT License.
