@@ -79,7 +79,17 @@ jobs:
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ctest --build-config ${{ matrix.build_type }}
-      
+
+    - name: Create archive Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+            Compress-Archive -Path ./build/ -DestinationPath "RGE.zip"
+            
+    - name: Create archive Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+            zip -r "RGE.zip" ./build/
+            
     - name: Create Release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -87,5 +97,5 @@ jobs:
           automatic_release_tag: "${{ matrix.os }}-${{ matrix.c_compiler }}-latest"
           prerelease: true
           title: "Release Build"
-          files: build/
+          files: RGE.zip
 
