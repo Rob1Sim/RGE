@@ -114,6 +114,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.version-number.outputs.version-number }}${{ steps.version-number-w.outputs.version-number-w }}"
           prerelease: true
-          title: "Release Build"
-          files: RGE.zip
+          title: "Release ${{ steps.version-number.outputs.version-number }}${{ steps.version-number-w.outputs.version-number-w }} ${{matrix.os}}"
+          files: RGE-${{ steps.version-number.outputs.version-number }}${{ steps.version-number-w.outputs.version-number-w }}.zip
 
