@@ -59,7 +59,8 @@ jobs:
     - name: Set up CMake
       if: matrix.os == 'windows-latest'
       run: |
-            choco install cmake -y
+            choco upgrade chocolatey -y
+            choco upgrade cmake -y
 
             cmake --version
             
