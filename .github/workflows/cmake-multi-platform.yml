@@ -58,9 +58,9 @@ jobs:
       if: matrix.os == 'windows-latest'
       id: version_number
       run: |
-        $version = (Get-Content CMakeLists.txt -Raw | Select-String -Pattern 'project\(.*VERSION ([0-9]+\.[0-9]+\.[0-9]+)' | ForEach-Object { $_.Matches.Groups[1].Value })
+        $version = Get-Content CMakeLists.txt -Raw | Select-String -Pattern 'project\(.*VERSION ([0-9]+\.[0-9]+\.[0-9]+)' | ForEach-Object { $_.Matches.Groups[1].Value.Trim() }
         echo "version-number=$version" >> "$GITHUB_OUTPUT"
-        echo "$GITHUB_OUTPUT"
+        echo "$version"
         
     - name: Download GLFW
       run: |
