@@ -59,8 +59,7 @@ jobs:
     - name: Set up CMake
       if: matrix.os == 'windows-latest'
       run: |
-            $version = '3.28.1'
-            $url = "https://cmake.org/files/v$version/cmake-$version-win64-x64.msi"
+            $url = "https://github.com/Kitware/CMake/releases/download/v3.28.1/cmake-3.28.1-windows-x86_64.msi"
 
             Invoke-WebRequest -Uri $url -OutFile cmake_installer.msi
 
