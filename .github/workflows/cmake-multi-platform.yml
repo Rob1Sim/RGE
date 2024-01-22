@@ -56,7 +56,7 @@ jobs:
 
     - name: Set version number Windows
       if: matrix.os == 'windows-latest'
-      id: version_number
+      id: version-number-w
       run: |
         $version = Get-Content CMakeLists.txt -Raw | Select-String -Pattern 'project\(.*VERSION ([0-9]+\.[0-9]+\.[0-9]+)' | ForEach-Object { $_.Matches.Groups[1].Value.Trim() }
         echo "version-number=$version" >> "$GITHUB_OUTPUT"
@@ -113,7 +113,7 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.version-number.outputs.version-number }}"
+          automatic_release_tag: "${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.version-number.outputs.version-number }}${{ steps.version-number-w.outputs.version-number }}"
           prerelease: true
           title: "Release Build"
           files: RGE.zip
