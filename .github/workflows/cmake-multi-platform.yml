@@ -59,10 +59,12 @@ jobs:
     - name: Set up CMake
       if: matrix.os == 'windows-latest'
       run: |
-            choco upgrade chocolatey -y
-            choco upgrade cmake -y
+            $version = '3.28.1'
+            $url = "https://cmake.org/files/v$version/cmake-$version-win64-x64.msi"
 
-            cmake --version
+            Invoke-WebRequest -Uri $url -OutFile cmake_installer.msi
+
+            Start-Process -Wait -FilePath msiexec -ArgumentList "/i", "cmake_installer.msi", "/quiet", "/qn"
             
     - name: Configure CMake with GLFW
       run: >
