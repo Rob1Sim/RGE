@@ -59,11 +59,9 @@ jobs:
     - name: Set up CMake
       if: matrix.os == 'windows-latest'
       run: |
-            $url = "https://github.com/Kitware/CMake/releases/download/v3.28.1/cmake-3.28.1-windows-x86_64.zip"
-            Invoke-WebRequest -Uri $url -OutFile cmake.zip
-            Expand-Archive -Path cmake.zip -DestinationPath C:\cmake -Force
-            
-            $env:Path += ";C:\cmake\bin"
+            Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+            choco install cmake --version=3.28.1 -y
+
             cmake --version
             
     - name: Configure CMake with GLFW
