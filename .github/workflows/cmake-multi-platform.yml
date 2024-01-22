@@ -57,10 +57,15 @@ jobs:
           sudo apt-get install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
           
     - name: Set up CMake
-      uses: actions/setup-cmake@v2
-      with:
-          cmake-version: '3.28.1'
-          
+      if: matrix.os == 'windows-latest'
+      run: |
+            $url = "https://github.com/Kitware/CMake/releases/download/v3.28.1/cmake-3.28.1-windows-x86_64.zip"
+            Invoke-WebRequest -Uri $url -OutFile cmake.zip
+            Expand-Archive -Path cmake.zip -DestinationPath C:\cmake -Force
+            
+            $env:Path += ";C:\cmake\bin"
+            cmake --version
+            
     - name: Configure CMake with GLFW
       run: >
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
