@@ -112,7 +112,7 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ matrix.include.os.os_name }}-${{ matrix.c_compiler }}-${{ steps.version-number.outputs.version-number }}"
+          automatic_release_tag: "${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.version-number.outputs.version-number }}"
           prerelease: true
           title: "Release Build"
           files: RGE.zip
