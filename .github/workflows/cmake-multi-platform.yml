@@ -51,7 +51,7 @@ jobs:
       working-directory: ${{ github.workspace }}
 
     - name: Install libxrandr-dev on Linux
-      if: matrix.os == ubuntu-latest
+      if: matrix.os == 'ubuntu-latest'
       run: |
           sudo apt-get update
           sudo apt-get install libxrandr-dev
