@@ -59,8 +59,7 @@ jobs:
     - name: Set up CMake
       if: matrix.os == 'windows-latest'
       run: |
-            Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-            choco install cmake --version=3.28.1 -y
+            choco install cmake -y
 
             cmake --version
             
