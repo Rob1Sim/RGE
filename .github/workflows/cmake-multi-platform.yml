@@ -79,29 +79,13 @@ jobs:
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ctest --build-config ${{ matrix.build_type }}
-
-  create-release:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+      
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        files: |
-          build/  # Replace with your actual path
-        asset-name: RGE
-        tag_name: v0.0.1  # You can set your desired version number
-        release_name: Release v0.0.1
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Release Build"
+          files: build/
 
-    - name: Publish Release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/   # Replace with your actual path
-        asset_name: RGE
-        asset_content_type: application/octet-stream
